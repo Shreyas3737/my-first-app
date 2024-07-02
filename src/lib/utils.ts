@@ -3,7 +3,8 @@ export async function fetchBcfBoardsData(): Promise<any[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch BCF boards data');
   }
-  return await response.json();
+  const data = await response.json();
+  return data as any[];
 }
 
 export async function fetchPromptsData(): Promise<any[]> {
@@ -11,5 +12,9 @@ export async function fetchPromptsData(): Promise<any[]> {
   if (!response.ok) {
     throw new Error('Failed to fetch prompts data');
   }
-  return await response.json();
+  const data = await response.json();
+  return data as any[];
 }
+
+export const fetcher = (url: string) => fetch(url).then((res) => res.json());
+

@@ -1,16 +1,23 @@
-import React, { ReactNode } from 'react';
 
-interface LayoutProps {
-  children: ReactNode;
-}
+import './globals.css';
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
+export const metadata = {
+  title: 'My App',
+  description: 'My Next.js App',
+};
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="layout">
-      {/* You can include header, footer, sidebar, etc. here */}
-      {children}
-    </div>
+    <html lang="en">
+      <head>
+        <title>{metadata.title}</title>
+        <meta name="description" content={metadata.description} />
+      </head>
+      <body>
+        {children}
+      </body>
+    </html>
   );
 };
 
-export default Layout;
+export default RootLayout;

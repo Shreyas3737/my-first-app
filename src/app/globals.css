@@ -1,74 +1,43 @@
-.page-container {
+.container {
   display: flex;
 }
 
 .sidebar {
-  width: 250px;
-  background-color: #4a148c;
-  color: white;
+  width: 200px;
   padding: 20px;
+  background-color: #f5f5f5;
 }
 
-.sidebar h2 {
-  text-align: center;
-}
-
-.sidebar-item {
-  margin-bottom: 10px;
-}
-
-.sidebar-title {
-  display: flex;
-  justify-content: space-between;
-  cursor: pointer;
-  padding: 10px;
-  background-color: #6a1b9a;
-  border-radius: 5px;
-}
-
-.sidebar-content {
-  margin-left: 20px;
-  margin-top: 5px;
-}
-
-.content {
+.main-content {
   flex: 1;
   padding: 20px;
-  background-color: #7b1fa2;
-  color: white;
 }
 
-.search-bar {
+.prompts-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.prompt-item {
+  width: calc(33.3333% - 20px);
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.chart {
+  height: 150px;
+  background-color: #e0e0e0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-input {
   width: 100%;
   padding: 10px;
   margin-bottom: 20px;
-}
-
-.filter-buttons button {
-  margin-right: 10px;
-  padding: 10px;
-  background-color: #9575cd;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-.prompt-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 10px;
-}
-
-.prompt-card {
-  background-color: #ab47bc;
-  padding: 10px;
-  border-radius: 5px;
-}
-
-.chart-placeholder {
-  height: 50px;
-  background-color: #d1c4e9;
-  border-radius: 5px;
-  text-align: center;
-  line-height: 50px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }

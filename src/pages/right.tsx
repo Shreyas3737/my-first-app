@@ -9,7 +9,6 @@ const Right: React.FC<RightProps> = ({ children, bcfBoards }) => {
   return (
     <div>
       {children}
-      {/* Render bcfBoards here */}
     </div>
   );
 };

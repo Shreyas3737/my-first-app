@@ -1,19 +1,25 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 
 interface SearchBarProps {
   onSearch: (searchTerm: string) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onSearch(e.target.value);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    onSearch(value);
   };
 
   return (
-    <input
-      type="text"
-      onChange={handleChange}
-      placeholder="Search..."
+    <input 
+      type="text" 
+      value={searchTerm}
+      onChange={handleInputChange}
+      placeholder="Search prompts..."
     />
   );
 };

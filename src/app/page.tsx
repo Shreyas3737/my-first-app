@@ -1,50 +1,48 @@
-import React, { useState } from 'react';
-import  Layout  from '../components/Layout';
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import useSWR from 'swr';
+import Layout from '../components/Layout';
 import PromptCard from '../components/PromptCard';
 import SearchBar from '../components/SearchBar';
-import { fetchBcfBoardsData, fetchPromptsData } from '../lib/utils';
-import Sidebar from 'src/components/Sidebar';
+import { fetcher } from '../lib/utils';
 
-interface Props {
-  bcfBoards: any[];
-  prompts: any[];
-}
-
-const Page: React.FC<Props> = ({ bcfBoards, prompts }) => {
-  const [filteredPrompts, setFilteredPrompts] = useState(prompts);
+const Page: React.FC = () => {
+  const { data: bcfBoards, error: bcfError } = useSWR('https://demo6396395.mockable.io/bcf-boards', fetcher);
+  const { data: prompts, error: promptsError } = useSWR('https://demo6396395.mockable.io/prompts', fetcher);
+  
+  const [filteredPrompts, setFilteredPrompts] = useState<any[]>([]);
+  
+  useEffect(() => {
+    if (prompts) {
+      setFilteredPrompts(prompts);
+    }
+  }, [prompts]);
 
   const handleSearch = (searchTerm: string) => {
+    if (!prompts) return;
+
     setFilteredPrompts(
-      prompts.filter((prompt) => prompt.title.toLowerCase().includes(searchTerm.toLowerCase()))
+      prompts.filter((prompt: any) => 
+        prompt?.title?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
   };
 
+  if (bcfError || promptsError) return <div>Failed to load</div>;
+
   return (
     <Layout>
-      <Sidebar bcfBoards={bcfBoards} />
-      <div className="main-content">
-        <h2>Prompts</h2>
-        <SearchBar onSearch={handleSearch} />
-        <div className="prompts-container">
-          {filteredPrompts.map((prompt) => (
-            <PromptCard key={prompt.id} {...prompt} />
-          ))}
-        </div>
-      </div>
+      <SearchBar onSearch={handleSearch} />
+      {bcfBoards && filteredPrompts.length > 0 ? (
+        filteredPrompts.map((prompt: any) => (
+          <PromptCard key={prompt.id} prompt ={prompt} />
+        ))
+      ) : (
+        <div>Loading...</div>
+      )}
     </Layout>
   );
 };
-
-export async function getStaticProps() {
-  const bcfBoards = await fetchBcfBoardsData();
-  const prompts = await fetchPromptsData();
-
-  return {
-    props: {
-      bcfBoards,
-      prompts,
-    },
-  };
-}
 
 export default Page;
