@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout } from '../components/Layout';
+import  Layout  from '../components/Layout';
 import PromptCard from '../components/PromptCard';
 import SearchBar from '../components/SearchBar';
 import { fetchBcfBoardsData, fetchPromptsData } from '../lib/utils';
